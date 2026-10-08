@@ -61,6 +61,7 @@ body{background:var(--beige);color:var(--ink);font-family:var(--body);font-size:
 .card{position:relative;width:100%;padding:40px clamp(44px,9vw,70px) 20px;display:grid;gap:16px;justify-items:center}
 .card h2{font-size:clamp(26px,6vw,34px);line-height:1.25;margin:0;font-weight:800;color:var(--green);text-wrap:balance}
 .card p{margin:0;max-width:44ch}
+.card p.dj-line{margin-top:22px}
 .card .soft{color:var(--muted)}
 .card .sign{font-weight:800;color:var(--green)}
 
@@ -206,7 +207,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding-block:0 40px}
 .closex:focus-visible{outline:3px solid var(--sun)}
 
 /* boring rules */
-.rules{width:min(100%,520px);display:grid;gap:12px;text-align:center;padding-block:40px 20px;font-size:15px;color:var(--muted)}
+.rules{width:min(100%,520px);display:grid;gap:12px;text-align:center;padding-block:10px 50px;font-size:15px;color:var(--muted)}
 .rules h3{margin:0 0 4px;font-size:18px;font-weight:800;color:var(--ink)}
 .rules p{margin:0}
 .rules .note-pay{background:#fdf3cf;border:1px solid #efd889;border-radius:14px;padding:12px 16px;color:var(--ink);font-weight:600}
@@ -257,10 +258,10 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding-block:0 40px}
 <main class="invite" id="invite">
   <article class="card sec reveal" id="card">
 
-    <h2>מסיבת בחירות בג׳ונגל! 🐒</h2>
+    <h2>מסיבת בחירות בג׳ונגל!</h2>
     <p>בניגוד לקמפיינים אחרים, אצלנו הבטחות מקיימים.</p>
     <p>אחרי שתקענו יתד בדרום העיר, החלטנו לחזור לגג המיתולוגי שלנו בטרמפולדור למסיבת שקיעה חלומית מול הים.</p>
-    <p>עם אפס מנדטים, אבל רחבה מלאה:<br><b class="ltr" style="font-size:1.25em">Omri Shachtal 🎧🔥</b></p>
+    <p class="dj-line">עם אפס מנדטים, אבל רחבה מלאה:<br><b class="ltr" style="font-size:1.25em">Omri Shachtal 🎧🔥</b></p>
     <p class="sign">אז אל תהיו אדישים,<br>נתראה בין העצים 🌴</p>
 
   </article>
@@ -270,7 +271,6 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding-block:0 40px}
     <h2>הפרטים 🌿</h2>
     <div class="rows">
       <div class="rowi"><span class="ic">🎵</span><span>מיינסטרים, האוס, עברית מעובד ופוטנציאל לטכנו עם נגיעה של טראנס</span></div>
-      <div class="rowi"><span class="ic">👕</span><span><b>קוד לבוש:</b> אין הנחיות מיוחדות</span></div>
       <div class="rowi"><span class="ic">📅</span><span><b>יום שלישי, 27.10</b> · יום הבחירות</span></div>
       <div class="rowi"><span class="ic">🕒</span><span><b class="ltr">15:00–21:30</b> · משקיעה עד הלילה</span></div>
       <div class="rowi"><span class="ic">📍</span><span><b>הירקון 62</b>, הגג בטרומפלדור · <a href="https://www.google.com/maps/search/?api=1&query=HaYarkon+62+Tel+Aviv" target="_blank" rel="noopener">למפה</a></span></div>
@@ -281,6 +281,14 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding-block:0 40px}
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
       <span>שיתוף האירוע</span>
     </button>
+  </section>
+
+  <section class="rules reveal" aria-label="נהלים">
+    <h3>נהלים משעממים</h3>
+    <p>אנחנו אוהבים את כולכם בצורה שווה, אבל את אלה שמתכרטסים מוקדם אנחנו אוהבים יותר. כניסות של הרגע האחרון מעבר למכסה לא יקרו 🚫</p>
+    <p>החזרים וביטולים עד 23 בספטמבר, ביצירת קשר עם המארגנים בתחתית העמוד.</p>
+    <p class="note-pay">💳 שימו לב: ההרשמה מושלמת רק לאחר התשלום. אחרי מילוי הפרטים יש ללחוץ על הכפתור לתשלום.</p>
+    <p class="sig">פיס אנד לאב<br>טים ג׳אנגל 🌴</p>
   </section>
 
   <section class="tickets sec" id="tickets" aria-label="כרטיסים">
@@ -295,15 +303,15 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding-block:0 40px}
         <div class="qty">
           <span>כמה כרטיסים?</span>
           <div id="qtyPick">
-            <button type="button" aria-pressed="false">1</button>
-            <button type="button" aria-pressed="true">2</button>
+            <button type="button" aria-pressed="true">1</button>
+            <button type="button" aria-pressed="false">2</button>
             <button type="button" aria-pressed="false">3</button>
             <button type="button" aria-pressed="false">4</button>
           </div>
         </div>
         <div id="people"></div>
         <p class="err" id="formErr" hidden></p>
-        <button type="submit" class="btn sun" id="buy">סיום והמשך לרכישה · <span id="total" class="ltr">₪240</span> ←</button>
+        <button type="submit" class="btn sun" id="buy">סיום והמשך לרכישה · <span id="total" class="ltr">₪120</span> ←</button>
         <div class="hint" id="note">התשלום מתבצע ב-PayBox</div>
       </form>
     </div>
@@ -327,13 +335,6 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding-block:0 40px}
       <button type="button" class="btn sun" id="shareBtn2">העתקת ההזמנה</button>
     </div>
   </section>
-  <section class="rules reveal" aria-label="נהלים">
-    <h3>נהלים משעממים</h3>
-    <p>אנחנו אוהבים את כולכם בצורה שווה, אבל את אלה שמתכרטסים מוקדם אנחנו אוהבים יותר. כניסות של הרגע האחרון מעבר למכסה לא יקרו 🚫</p>
-    <p>החזרים וביטולים עד 23 בספטמבר, ביצירת קשר עם המארגנים בתחתית העמוד.</p>
-    <p class="note-pay">💳 שימו לב: ההרשמה מושלמת רק לאחר התשלום. אחרי מילוי הפרטים יש ללחוץ על הכפתור לתשלום.</p>
-    <p class="sig">פיס אנד לאב<br>טים ג׳אנגל 🌴</p>
-  </section>
 </main>
 <footer>Election Party · 27.10 · הירקון 62, תל אביב</footer>
 </div>
@@ -342,7 +343,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding-block:0 40px}
   <div class="pay">
     <button type="button" class="closex" id="payClose" aria-label="סגירה">×</button>
     <h3 id="payTitle">כמעט בפנים! 🐒</h3>
-    <div class="sum" id="paySum">2 כרטיסים · ₪240</div>
+    <div class="sum" id="paySum">1 כרטיס · ₪120</div>
     <p style="margin:0"><span id="savedLine">נשאר רק לשלם ב-PayBox.</span><br>אם אתם במחשב, סרקו את הקוד עם מצלמת הטלפון:</p>
     <div class="qrbox" id="qr"></div>
     <div class="or">או מהטלפון</div>
@@ -362,7 +363,7 @@ const TIER2_OPEN = false;   // switch to true when stage one sells out
 const WHATSAPP_URL = "https://chat.whatsapp.com/DqPTC2FtQxgEoZTXywchrW?mode=gi_t";  // paste the WhatsApp group invite link here
 const SHEET_URL = "";     // Google Apps Script web-app URL that writes registrations to the Google Sheet
 
-let price = 120, qty = 2;
+let price = 120, qty = 1;
 const t1 = document.getElementById('t1'), t2 = document.getElementById('t2');
 if (TIER2_OPEN) {
   price = 140;
