@@ -205,6 +205,13 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding-block:0 40px}
 .closex{position:absolute;top:12px;left:12px;width:36px;height:36px;border-radius:50%;border:none;background:#eef3df;font-size:20px;cursor:pointer;color:var(--ink)}
 .closex:focus-visible{outline:3px solid var(--sun)}
 
+/* boring rules */
+.rules{width:min(100%,520px);display:grid;gap:12px;text-align:center;padding-block:40px 20px;font-size:15px;color:var(--muted)}
+.rules h3{margin:0 0 4px;font-size:18px;font-weight:800;color:var(--ink)}
+.rules p{margin:0}
+.rules .note-pay{background:#fdf3cf;border:1px solid #efd889;border-radius:14px;padding:12px 16px;color:var(--ink);font-weight:600}
+.rules .sig{font-weight:800;color:var(--green);margin-top:6px}
+
 /* Scroll reveal (armed by script) */
 .reveal-on .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1)}
 .reveal-on .reveal.in{opacity:1;transform:none}
@@ -262,11 +269,12 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding-block:0 40px}
     <span class="eyebrow">כל מה שצריך לדעת</span>
     <h2>הפרטים 🌿</h2>
     <div class="rows">
-      <div class="rowi"><span class="ic">🎵</span><span>מיינסטרים, וקצת טכנו וטראנס לקינוח</span></div>
+      <div class="rowi"><span class="ic">🎵</span><span>מיינסטרים, האוס, עברית מעובד ופוטנציאל לטכנו עם נגיעה של טראנס</span></div>
+      <div class="rowi"><span class="ic">👕</span><span><b>קוד לבוש:</b> אין הנחיות מיוחדות</span></div>
       <div class="rowi"><span class="ic">📅</span><span><b>יום שלישי, 27.10</b> · יום הבחירות</span></div>
       <div class="rowi"><span class="ic">🕒</span><span><b class="ltr">15:00–21:30</b> · משקיעה עד הלילה</span></div>
       <div class="rowi"><span class="ic">📍</span><span><b>הירקון 62</b>, הגג בטרומפלדור · <a href="https://www.google.com/maps/search/?api=1&query=HaYarkon+62+Tel+Aviv" target="_blank" rel="noopener">למפה</a></span></div>
-      <div class="rowi gold"><span class="ic">🍹</span><span><b>אלכוהול חופשי</b></span></div>
+      <div class="rowi gold"><span class="ic">🍹</span><span><b>אלכוהול עלינו</b></span></div>
     </div>
 
     <button type="button" class="btn" id="shareBtn" style="margin-top:8px">
@@ -318,6 +326,13 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding-block:0 40px}
       <p>העתיקו את פרטי המסיבה ושלחו בקבוצה</p>
       <button type="button" class="btn sun" id="shareBtn2">העתקת ההזמנה</button>
     </div>
+  </section>
+  <section class="rules reveal" aria-label="נהלים">
+    <h3>נהלים משעממים</h3>
+    <p>אנחנו אוהבים את כולכם בצורה שווה, אבל את אלה שמתכרטסים מוקדם אנחנו אוהבים יותר. כניסות של הרגע האחרון מעבר למכסה לא יקרו 🚫</p>
+    <p>החזרים וביטולים עד 23 בספטמבר, ביצירת קשר עם המארגנים בתחתית העמוד.</p>
+    <p class="note-pay">💳 שימו לב: ההרשמה מושלמת רק לאחר התשלום. אחרי מילוי הפרטים יש ללחוץ על הכפתור לתשלום.</p>
+    <p class="sig">פיס אנד לאב<br>טים ג׳אנגל 🌴</p>
   </section>
 </main>
 <footer>Election Party · 27.10 · הירקון 62, תל אביב</footer>
@@ -453,7 +468,7 @@ if (WHATSAPP_URL) waBtn.href = WHATSAPP_URL;
 else { waBtn.removeAttribute('target'); waBtn.addEventListener('click', e => { e.preventDefault(); waBtn.textContent = 'הקישור יעלה בקרוב'; }); }
 
 /* Share: copy the invitation text */
-const inviteText = 'Election Party 🐒 מסיבת בחירות בג׳ונגל\nיום שלישי 27.10 · 15:00–21:30\nהירקון 62, הגג בטרומפלדור, תל אביב\nאלכוהול חופשי 🍹 · Omri Shachtal 🎧';
+const inviteText = 'Election Party 🐒 מסיבת בחירות בג׳ונגל\nיום שלישי 27.10 · 15:00–21:30\nהירקון 62, הגג בטרומפלדור, תל אביב\nאלכוהול עלינו 🍹 · Omri Shachtal 🎧';
 function copyInvite(btn){
   const label = btn.querySelector('span') || btn, old = label.textContent;
   const done = ok => { label.textContent = ok ? 'הועתק ✓' : 'לא הצלחנו להעתיק'; setTimeout(() => label.textContent = old, 1800); };
@@ -461,76 +476,136 @@ function copyInvite(btn){
 }
 ['shareBtn','shareBtn2'].forEach(id => { const b = document.getElementById(id); b.addEventListener('click', () => copyInvite(b)); });
 
-/* Living leaf frame: tropical leaves grow in from every edge of the screen once you scroll past the opener, and sway */
+/* Living leaf frame: natural tropical leaves grow in from the four corners once you scroll past the opener, and sway.
+   Each leaf shape is painted once into a small sprite (shading, veins, soft shadow), then drawn scaled and rotated. */
 (function(){
   const cv = document.getElementById('frame'), x = cv.getContext('2d'), hero = document.querySelector('.hero');
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let W, H, leaves = [], prog = 0, target = 0;
-  const pal = [['#7cc44f','#1f6b2c'],['#9ad15a','#2e8a3c'],['#4fa846','#123f1c'],['#b5dc6e','#4a9a3e'],['#3c9a5a','#0f4a2c'],['#2f7a3a','#0b3318'],['#c3e27a','#5aa63e']];
   let seed = 31; const R = () => (seed = (seed*16807) % 2147483647) / 2147483647;
+  const BASE = 300, RES = 1.5;
+  const greens = [['#7fb24a','#3f7a2e'],['#5f9e3e','#2c5f27'],['#8fbf55','#4d8a34'],['#4a8a3c','#1f4d24'],['#6aa84a','#30632a'],['#9cc35a','#5a8f36'],['#3d7a44','#173f25']];
 
+  /* ---------- sprite painting ---------- */
+  function outline(c, L, w, asym){
+    c.beginPath(); c.moveTo(0,0);
+    c.bezierCurveTo(L*.1,-L*w*1.05, L*.58,-L*w*1.2, L*.9,-L*w*.32);
+    c.quadraticCurveTo(L*1.0,-L*w*.08, L,0);
+    c.quadraticCurveTo(L*1.0, L*w*asym*.08, L*.9, L*w*asym*.32);
+    c.bezierCurveTo(L*.58, L*w*asym*1.2, L*.1, L*w*asym*1.05, 0,0);
+    c.closePath();
+  }
+  function heart(c, L, w){
+    c.beginPath(); c.moveTo(L*.06,0);
+    c.bezierCurveTo(-L*.1,-L*w*.9, L*.42,-L*w*1.25, L*.82,-L*w*.42);
+    c.quadraticCurveTo(L*.97,-L*w*.1, L,0);
+    c.quadraticCurveTo(L*.97, L*w*.1, L*.82, L*w*.42);
+    c.bezierCurveTo(L*.42, L*w*1.25, -L*.1, L*w*.9, L*.06,0);
+    c.closePath();
+  }
+  function paintLeaf(kind, col){
+    const L = BASE, w = kind==='banana' ? .2 : kind==='monstera' ? .5 : kind==='pothos' ? .42 : .3;
+    const pad = 24, stem = L*.14;
+    const cw = Math.ceil((L + stem + pad*2) * RES), ch = Math.ceil((L*w*2.7 + pad*2) * RES);
+    const s = document.createElement('canvas'); s.width = cw; s.height = ch;
+    const c = s.getContext('2d'); c.scale(RES,RES);
+    const ox = pad + stem, oy = ch/RES/2, asym = .88 + R()*.2;
+    c.translate(ox, oy);
+    const shape = () => kind==='pothos' || kind==='monstera' ? heart(c, L, w) : outline(c, L, w, asym);
+
+    // stem
+    c.strokeStyle = col[1]; c.lineWidth = 5; c.lineCap = 'round';
+    c.beginPath(); c.moveTo(-stem, 2); c.quadraticCurveTo(-stem*.4, -2, 4, 0); c.stroke();
+
+    // soft cast shadow
+    c.save(); c.shadowColor = 'rgba(20,45,10,.35)'; c.shadowBlur = 14; c.shadowOffsetY = 6;
+    shape(); c.fillStyle = col[1]; c.fill(); c.restore();
+
+    // body colour: lighter toward the tip, darker at the base
+    c.save(); shape(); c.clip();
+    const g = c.createLinearGradient(0,0,L,0); g.addColorStop(0,col[1]); g.addColorStop(.55,col[0]); g.addColorStop(1,col[0]);
+    c.fillStyle = g; c.fillRect(-10,-L,L+20,L*2);
+    // one half in shade, as if the leaf folds slightly along the midrib
+    c.fillStyle = 'rgba(10,35,10,.16)'; c.fillRect(-10,-L,L+20,L);
+    // glossy highlight
+    const hl = c.createRadialGradient(L*.45,-L*w*.35,0,L*.45,-L*w*.35,L*.45);
+    hl.addColorStop(0,'rgba(255,255,225,.22)'); hl.addColorStop(1,'rgba(255,255,225,0)');
+    c.fillStyle = hl; c.fillRect(-10,-L,L+20,L*2);
+    // veins
+    c.strokeStyle = 'rgba(240,250,215,.32)'; c.lineCap = 'round';
+    c.lineWidth = 2.4; c.beginPath(); c.moveTo(0,0); c.quadraticCurveTo(L*.5,-L*.015,L*.98,0); c.stroke();
+    c.lineWidth = 1.1; c.strokeStyle = 'rgba(240,250,215,.2)';
+    const n = kind==='banana' ? 26 : kind==='pothos' ? 6 : 9;
+    for (let i=1;i<n;i++){
+      const t = i/n*.9, hw = L*w*Math.pow(Math.sin(Math.PI*Math.min(.98,t+.04)),.8);
+      [-1,1].forEach(d => { c.beginPath(); c.moveTo(L*t, 0);
+        if (kind==='banana') c.lineTo(L*(t+.03), d*hw);
+        else c.quadraticCurveTo(L*(t+.04), d*hw*.55, L*(t+.16), d*hw*.95);
+        c.stroke(); });
+    }
+    c.restore();
+    // a thin darker rim
+    shape(); c.strokeStyle = 'rgba(15,45,15,.28)'; c.lineWidth = 1.2; c.stroke();
+
+    // natural damage: banana leaves tear along the veins, monstera has rounded holes and splits
+    c.globalCompositeOperation = 'destination-out'; c.lineCap = 'round';
+    if (kind==='banana'){
+      for (let i=0;i<3+Math.floor(R()*3);i++){
+        const t = .2 + R()*.65, d = R()<.5?-1:1, hw = L*w*Math.sin(Math.PI*t);
+        c.lineWidth = 2 + R()*2; c.beginPath(); c.moveTo(L*(t+.03), d*hw*1.2); c.lineTo(L*t, d*hw*(.15+R()*.35)); c.stroke();
+      }
+    }
+    if (kind==='monstera'){
+      for (let i=0;i<3;i++){ const t = .28 + i*.2;
+        [-1,1].forEach(d => { const hw = L*w*Math.sin(Math.PI*t);
+          c.lineWidth = L*.035; c.beginPath(); c.moveTo(L*(t+.1), d*hw*1.3); c.lineTo(L*(t+.02), d*hw*.62); c.stroke();
+          c.beginPath(); c.ellipse(L*(t-.02), d*hw*.32, L*.035, L*.018, .4*d, 0, 6.28); c.fill(); });
+      }
+    }
+    c.globalCompositeOperation = 'source-over';
+    return {img:s, ox:ox*RES, oy:oy*RES};
+  }
+
+  let sprites = null;
+  function makeSprites(){
+    seed = 77;
+    const kinds = ['oval','oval','oval','banana','banana','banana','monstera','monstera','pothos','pothos','pothos','oval'];
+    sprites = kinds.map((k,i) => ({kind:k, ...paintLeaf(k, greens[i%greens.length])}));
+  }
+
+  /* ---------- layout ---------- */
   function build(){
     seed = 31;
     const dpr = Math.min(2, devicePixelRatio||1);
     W = innerWidth; H = innerHeight; cv.width = W*dpr; cv.height = H*dpr; x.setTransform(dpr,0,0,dpr,0,0);
-    const k = W < 600 ? .34 : W < 1000 ? .7 : 1, mob = W < 600;
+    const mob = W < 600, k = mob ? .38 : W < 1000 ? .72 : 1;
     leaves = [];
-    const edge = (side, pos) => {
-      // base point just outside the edge, pointing inward
-      if (side===0) return [pos, -10, Math.PI/2];
-      if (side===1) return [W+10, pos, Math.PI];
-      if (side===2) return [pos, H+10, -Math.PI/2];
-      return [-10, pos, 0];
-    };
-    [0,1,2,3].forEach(side => {
-      const span = side%2 ? H : W, step = (side%2 ? 30 : 38) * (W<600 ? 1.1 : 1);
-      for (let p = -30; p < span+30; p += step*(0.4+R()*0.9)){
-        const zone = span * (mob ? .3 : .24);
-        if (p > zone && p < span - zone) continue;   // corners only, keep the middle of each edge clear
-        const [bx,by,a] = edge(side,p);
-        const r = R(), type = r < .3 ? 'frond' : r < .55 ? 'banana' : r < .8 ? 'broad' : 'pothos';
-        let len = (type==='pothos' ? 40+R()*30 : type==='frond' ? 150+R()*120 : 110+R()*130) * k;
-        if (side%2===0){ const off = Math.abs(p - W/2)/(W/2); len *= 0.25 + 0.55*Math.min(1, off*off*1.6); }
-        leaves.push({bx,by,a:a+(R()-.5)*2.1,len:len*(0.8+R()*0.5),type,col:pal[Math.floor(R()*pal.length)],ph:R()*6.28,sp:.6+R()*.8});
-        // messy extras: a second leaf from nearly the same spot, plus small pothos tucked in
-        if (R() < (mob ? .25 : .55)){ const t2 = ['banana','broad','frond'][Math.floor(R()*3)];
-          leaves.push({bx:bx+(R()-.5)*30,by:by+(R()-.5)*30,a:a+(R()-.5)*2.4,len:len*(0.5+R()*0.6),type:t2,col:pal[Math.floor(R()*pal.length)],ph:R()*6.28,sp:.5+R()*.9}); }
-        if (R() < (mob ? .3 : .45)) leaves.push({bx:bx+Math.cos(a)*len*.25,by:by+Math.sin(a)*len*.25,a:a+(R()-.5)*3,len:(30+R()*30)*k,type:'pothos',col:pal[Math.floor(R()*pal.length)],ph:R()*6.28,sp:.8+R()*.8});
-      }
-    });
-    // corner clusters
-    [[0,0,Math.PI/4],[W,0,Math.PI*3/4],[W,H,-Math.PI*3/4],[0,H,-Math.PI/4]].forEach(([cx,cy,a]) => {
-      for (let i=0;i<10;i++) leaves.push({bx:cx+(R()-.5)*40,by:cy+(R()-.5)*40,a:a+(i-4.5)*.22+(R()-.5)*.3,len:(200+R()*170)*k,type:['banana','frond','broad'][i%3],col:pal[i%pal.length],ph:R()*6.28,sp:.5+R()*.5});
+    const pick = kinds => { const pool = sprites.map((s,i)=>i).filter(i => kinds.includes(sprites[i].kind)); return pool[Math.floor(R()*pool.length)]; };
+    const add = (bx,by,a,len,kinds) => leaves.push({bx,by,a,len,spr:pick(kinds),ph:R()*6.28,sp:.5+R()*.7,flip:R()<.5?-1:1,squash:.78+R()*.22});
+    const corners = [[0,0,Math.PI/4],[W,0,Math.PI*3/4],[W,H,-Math.PI*3/4],[0,H,-Math.PI/4]];
+    corners.forEach(([cx,cy,a]) => {
+      // big back layer
+      for (let i=0;i<(mob?5:7);i++) add(cx+(R()-.5)*50, cy+(R()-.5)*50, a+(i-(mob?2:3))*.26+(R()-.5)*.2, (230+R()*150)*k, ['banana','monstera','oval']);
+      // spreading along both edges from the corner
+      const dirs = [[Math.sign(W/2-cx)||1,0],[0,Math.sign(H/2-cy)||1]];
+      dirs.forEach(([dx,dy]) => {
+        const reach = (dx ? W : H) * (mob ? .3 : .22);
+        for (let d=20; d<reach; d += (mob?34:28)*(.6+R()*.8)){
+          const bx = cx + dx*d, by = cy + dy*d, inward = dx ? (cy===0 ? Math.PI/2 : -Math.PI/2) : (cx===0 ? 0 : Math.PI);
+          const fade = 1 - d/reach;
+          add(bx, by, inward + (R()-.5)*1.4 + (dx? dx : dy)*.25, (90 + 170*fade + R()*60)*k, ['oval','banana','monstera']);
+          if (R() < .5) add(bx+(R()-.5)*20, by+(R()-.5)*20, inward+(R()-.5)*2, (45+R()*35)*k, ['pothos']);
+        }
+      });
     });
     leaves.sort((p,q) => q.len - p.len);
   }
 
-  function grad(len, c){ const g = x.createLinearGradient(0,-len*.2,len,len*.2); g.addColorStop(0,c[0]); g.addColorStop(1,c[1]); return g; }
-  function veins(len, w){
-    x.strokeStyle = 'rgba(235,250,210,.38)'; x.lineWidth = 1.6;
-    x.beginPath(); x.moveTo(0,0); x.quadraticCurveTo(len*.5,len*.02,len*.96,0); x.stroke();
-    x.lineWidth = 1;
-    for (let t=.12;t<.88;t+=.08){ const h = len*w*.85*Math.sin(Math.PI*t);
-      x.beginPath(); x.moveTo(len*t,0); x.quadraticCurveTo(len*(t+.05),-h*.5,len*(t+.1),-h); x.moveTo(len*t,0); x.quadraticCurveTo(len*(t+.05),h*.5,len*(t+.1),h); x.stroke(); }
-  }
-  function body(len,w){ x.beginPath(); x.moveTo(0,0); x.bezierCurveTo(len*.25,-len*w,len*.72,-len*w*.95,len,0); x.bezierCurveTo(len*.72,len*w*.95,len*.25,len*w,0,0); x.fill(); }
   function draw(l,t){
-    const g = .35 + .65*prog;               // grow in from the edge
-    const len = l.len*g, sway = calm ? 0 : Math.sin(t/1000*l.sp + l.ph)*.06;
-    x.save(); x.translate(l.bx,l.by); x.rotate(l.a+sway);
-    if (l.type==='frond'){
-      x.strokeStyle = l.col[1]; x.lineWidth = 3; x.beginPath(); x.moveTo(0,0); x.quadraticCurveTo(len*.5,-len*.06,len,len*.1); x.stroke();
-      x.fillStyle = grad(len,l.col);
-      for (let i=1;i<20;i++){ const t2=i/20, px=len*t2, py=-len*.06*4*t2*(1-t2)+len*.1*t2*t2, s=len*.24*Math.sin(Math.PI*(t2*.85+.1))+5;
-        [-1,1].forEach(d => { x.beginPath(); x.moveTo(px,py); x.quadraticCurveTo(px+s*.35,py+d*s*.35,px+s*.75,py+d*s*.9); x.quadraticCurveTo(px+s*.3,py+d*s*.3,px,py); x.fill(); }); }
-    } else if (l.type==='pothos'){
-      x.fillStyle = grad(len,l.col); x.rotate(-Math.PI/2);
-      x.beginPath(); x.moveTo(0,0); x.bezierCurveTo(-len*.75,len*.05,-len*.8,len*.85,0,len*1.25); x.bezierCurveTo(len*.8,len*.85,len*.75,len*.05,0,0); x.fill();
-      x.strokeStyle='rgba(235,250,210,.35)'; x.lineWidth=1.2; x.beginPath(); x.moveTo(0,len*.08); x.lineTo(0,len*1.1); x.stroke();
-    } else {
-      const w = l.type==='banana' ? .17 : .27;
-      x.fillStyle = grad(len,l.col); body(len,w); veins(len,w);
-    }
+    const s = sprites[l.spr], g = .35 + .65*prog;
+    const sc = l.len*g/BASE/RES, sway = calm ? 0 : Math.sin(t/1000*l.sp + l.ph)*.05;
+    x.save(); x.translate(l.bx,l.by); x.rotate(l.a+sway); x.scale(sc, sc*l.squash*l.flip);
+    x.drawImage(s.img, -s.ox, -s.oy);
     x.restore();
   }
   function frame(t){
@@ -544,7 +619,7 @@ function copyInvite(btn){
   function onScroll(){ const hh = hero.offsetHeight; target = Math.max(0, Math.min(1, (scrollY - hh*.45)/(hh*.45))); }
   addEventListener('scroll', onScroll, {passive:true});
   addEventListener('resize', () => { build(); onScroll(); });
-  build(); onScroll(); requestAnimationFrame(frame);
+  makeSprites(); build(); onScroll(); requestAnimationFrame(frame);
 })();
 
 /* Painted jungle for the opener: misty depth layers, light rays, a path, big foreground leaves */
