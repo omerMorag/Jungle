@@ -58,10 +58,10 @@ body{background:var(--beige);color:var(--ink);font-family:var(--body);font-size:
 
 /* ---------- Invitation ---------- */
 .invite{max-width:620px;margin:0 auto;padding-inline:20px;padding-block:90px 110px;display:grid;gap:34px;justify-items:center;text-align:center}
-.card{position:relative;width:100%;padding:40px clamp(44px,9vw,70px) 20px;display:grid;gap:16px;justify-items:center}
+.card{position:relative;width:100%;padding:40px clamp(44px,9vw,70px) 20px;display:grid;gap:28px;justify-items:center}
 .card h2{font-size:clamp(26px,6vw,34px);line-height:1.25;margin:0;font-weight:800;color:var(--green);text-wrap:balance}
 .card p{margin:0;max-width:44ch}
-.card p.dj-line{margin-top:22px}
+.card p.dj-line{margin-top:14px}
 .card .soft{color:var(--muted)}
 .card .sign{font-weight:800;color:var(--green)}
 
@@ -70,7 +70,7 @@ body{background:var(--beige);color:var(--ink);font-family:var(--body);font-size:
 .card h2{display:inline-block;font-size:clamp(22px,5vw,30px);background:#1f4f27;color:#fff;padding:.35em 1em;border-radius:6px;transform:rotate(-1.2deg);
   box-shadow:0 12px 24px -12px rgba(20,60,25,.8);margin-bottom:8px}
 /* info rows */
-.rows{display:grid;gap:10px;width:100%;margin-top:6px}
+.rows{display:grid;gap:14px;width:100%;margin-top:6px}
 .rowi{box-shadow:0 6px 16px -12px rgba(60,80,20,.6);display:flex;align-items:center;gap:12px;text-align:right;background:#f1f5e4;border:1px solid #d6e2bd;border-radius:14px;padding:11px 16px;font-size:16px}
 .rowi .ic{font-size:20px;flex:none;width:28px;text-align:center}
 .rowi b{font-weight:800}
@@ -207,11 +207,20 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding-block:0 40px}
 .closex:focus-visible{outline:3px solid var(--sun)}
 
 /* boring rules */
-.rules{width:min(100%,520px);display:grid;gap:12px;text-align:center;padding-block:10px 50px;font-size:15px;color:var(--muted)}
+.rules{width:min(100%,520px);display:grid;gap:24px;text-align:center;padding-block:10px 50px;font-size:15px;color:var(--muted)}
 .rules h3{margin:0 0 4px;font-size:18px;font-weight:800;color:var(--ink)}
 .rules p{margin:0}
 .rules .note-pay{background:#fdf3cf;border:1px solid #efd889;border-radius:14px;padding:12px 16px;color:var(--ink);font-weight:600}
 .rules .sig{font-weight:800;color:var(--green);margin-top:6px}
+
+/* contact */
+.contact{display:grid;gap:12px;justify-items:center;padding-block:20px 40px;text-align:center}
+.contact h3{margin:0;font-size:18px;font-weight:800;color:var(--ink)}
+.contact .ig{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.contact .ig a{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;background:var(--card);border:1.5px solid var(--line);
+  color:var(--green);font-weight:800;text-decoration:none;box-shadow:0 8px 18px -12px rgba(40,60,20,.5);transition:transform .15s}
+.contact .ig a:hover{transform:translateY(-2px);border-color:var(--green)}
+.contact .ig a:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
 
 /* Scroll reveal (armed by script) */
 .reveal-on .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1)}
@@ -333,6 +342,13 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding-block:0 40px}
       <h3>🌴 תביאו את החבר׳ה</h3>
       <p>העתיקו את פרטי המסיבה ושלחו בקבוצה</p>
       <button type="button" class="btn sun" id="shareBtn2">העתקת ההזמנה</button>
+    </div>
+  </section>
+  <section class="contact reveal" id="contact" aria-label="יצירת קשר">
+    <h3>ליצירת קשר</h3>
+    <div class="ig">
+      <a href="https://www.instagram.com/omermorag/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span class="ltr">@omermorag</span></a>
+      <a href="https://www.instagram.com/netaneiger16/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg><span class="ltr">@netaneiger16</span></a>
     </div>
   </section>
 </main>
