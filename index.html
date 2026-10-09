@@ -209,6 +209,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding-block:0 40px}
 .pay .btn{width:100%;font-size:18px;padding:15px}
 .closex{position:absolute;top:12px;left:12px;width:36px;height:36px;border-radius:50%;border:none;background:#eef3df;font-size:20px;cursor:pointer;color:var(--ink)}
 .closex:focus-visible{outline:3px solid var(--sun)}
+.note-warn{margin:0;background:#fde4d6;border:1px solid #f2b08c;border-radius:14px;padding:10px 14px;font-weight:700;font-size:15px;color:#7a2e0e}
 
 /* boring rules */
 .rules{width:min(100%,520px);display:grid;gap:24px;text-align:center;padding-block:10px 50px;font-size:15px;color:var(--muted)}
@@ -312,16 +313,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding-block:0 40px}
       <div class="tname">🐆 אני נמר שקונה מהר</div>
       <div class="tprice">120<small>₪</small></div>
       <form id="orderForm" novalidate>
-        <div class="hint">מלאו פרטים כדי להמשיך לרכישה</div>
-        <div class="qty">
-          <span>כמה כרטיסים?</span>
-          <div id="qtyPick">
-            <button type="button" aria-pressed="true">1</button>
-            <button type="button" aria-pressed="false">2</button>
-            <button type="button" aria-pressed="false">3</button>
-            <button type="button" aria-pressed="false">4</button>
-          </div>
-        </div>
+        <div class="hint">כרטיס אחד לכל הזמנה · מלאו פרטים כדי להמשיך לרכישה</div>
         <div id="people"></div>
         <p class="err" id="formErr" hidden></p>
         <button type="submit" class="btn sun" id="buy">סיום והמשך לרכישה · <span id="total" class="ltr">₪120</span> ←</button>
@@ -364,6 +356,7 @@ footer{text-align:center;color:var(--muted);font-size:14px;padding-block:0 40px}
     <button type="button" class="closex" id="payClose" aria-label="סגירה">×</button>
     <h3 id="payTitle">כמעט בפנים! 🐒</h3>
     <div class="sum" id="paySum">1 כרטיס · ₪120</div>
+    <p class="note-warn" id="payWarn" hidden></p>
     <p style="margin:0"><span id="savedLine">נשאר רק לשלם ב-PayBox.</span><br>אם אתם במחשב, סרקו את הקוד עם מצלמת הטלפון:</p>
     <div class="qrbox" id="qr"></div>
     <div class="or">או מהטלפון</div>
@@ -378,7 +371,14 @@ try{ history.scrollRestoration = 'manual'; }catch(e){}
 if (!location.hash) scrollTo(0,0);
 
 /* ===== Settings: paste the payment page link here (Bit / PayBox / Eventer / Go-out). ===== */
-const PAY_URL = "https://links.payboxapp.com/5M4mg6Y026b";
+const PAY_URL = "https://links.payboxapp.com/5M4mg6Y026b";   // 1 ticket
+/* A PayBox link has a fixed amount, so each ticket count needs its own link. Paste them here: */
+const PAY_URLS = {
+  1: PAY_URL,
+  2: "",   // link for 240
+  3: "",   // link for 360
+  4: ""    // link for 480
+};
 const TIER2_OPEN = false;   // switch to true when stage one sells out
 const WHATSAPP_URL = "https://chat.whatsapp.com/DqPTC2FtQxgEoZTXywchrW?mode=gi_t";  // paste the WhatsApp group invite link here
 const SHEET_URL = "https://script.google.com/macros/s/AKfycbxBB6WzPhcKBq3QRNTJLunCX83FxFzYxYD5_RzuQbQOqn1jRSjnB5Fd8NLdCHOcBYCu/exec";     // Google Apps Script web-app URL that writes registrations to the Google Sheet
@@ -447,12 +447,16 @@ async function saveRegistration(order){
 }
 
 const payScreen = document.getElementById('payScreen'), payOpen = document.getElementById('payOpen');
-let qrDone = false;
+let qrFor = null;
 function openPay(order){
   document.getElementById('paySum').textContent = `${order.qty} ${order.qty===1?'כרטיס':'כרטיסים'} · ₪${order.total}`;
-  if (PAY_URL){
-    payOpen.href = PAY_URL;
-    if (!qrDone && window.QRCode){ new QRCode(document.getElementById('qr'), {text:PAY_URL, width:360, height:360, colorDark:'#123f1c', colorLight:'#ffffff'}); qrDone = true; }
+  const exact = PAY_URLS[order.qty], url = exact || PAY_URL;
+  const warn = document.getElementById('payWarn');
+  warn.hidden = !!exact || !url;
+  if (!exact && url) warn.innerHTML = `⚠️ הקישור הוא לכרטיס אחד (₪${price}).<br>יש לבצע <b>${order.qty} תשלומים</b> דרכו, אחד לכל כרטיס.`;
+  if (url){
+    payOpen.href = url; payOpen.target = '_blank'; payOpen.onclick = null;
+    if (qrFor !== url && window.QRCode){ const q = document.getElementById('qr'); q.innerHTML = ''; new QRCode(q, {text:url, width:360, height:360, colorDark:'#123f1c', colorLight:'#ffffff'}); qrFor = url; }
   } else {
     document.getElementById('qr').innerHTML = '<div style="width:180px;height:180px;display:grid;place-items:center;color:#6f6a58;font-size:14px;font-weight:700">הקוד יופיע כאן<br>כשהקופה תיפתח</div>';
     payOpen.removeAttribute('target');
