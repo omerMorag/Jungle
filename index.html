@@ -382,7 +382,8 @@ const PAY_URLS = {
   3: "",   // link for 360
   4: ""    // link for 480
 };
-const TIER2_OPEN = false;   // switch to true when stage one sells out
+const TIER2_OPEN = true;    // stage two (₪140) is open, stage one (₪120) is closed
+const TIER2_PAY_URL = PAY_URL;   // same PayBox link, price raised to ₪140 in PayBox
 const WHATSAPP_URL = "https://chat.whatsapp.com/DqPTC2FtQxgEoZTXywchrW?mode=gi_t";  // paste the WhatsApp group invite link here
 const SHEET_URL = "https://script.google.com/macros/s/AKfycbxBB6WzPhcKBq3QRNTJLunCX83FxFzYxYD5_RzuQbQOqn1jRSjnB5Fd8NLdCHOcBYCu/exec";     // Google Apps Script web-app URL that writes registrations to the Google Sheet
 
@@ -453,7 +454,7 @@ const payScreen = document.getElementById('payScreen'), payOpen = document.getEl
 let qrFor = null;
 function openPay(order){
   document.getElementById('paySum').textContent = `${order.qty} ${order.qty===1?'כרטיס':'כרטיסים'} · ₪${order.total}`;
-  const exact = PAY_URLS[order.qty], url = exact || PAY_URL;
+  const exact = TIER2_OPEN ? TIER2_PAY_URL : PAY_URLS[order.qty], url = TIER2_OPEN ? TIER2_PAY_URL : (exact || PAY_URL);
   const warn = document.getElementById('payWarn');
   warn.hidden = !!exact || !url;
   if (!exact && url) warn.innerHTML = `⚠️ הקישור הוא לכרטיס אחד (₪${price}).<br>יש לבצע <b>${order.qty} תשלומים</b> דרכו, אחד לכל כרטיס.`;
