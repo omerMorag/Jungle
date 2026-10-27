@@ -392,7 +392,7 @@ const PAY_URLS = {
 };
 /* Which price stage is on sale: 1 = 🐆 ₪120, 2 = 🐢 ₪140, 3 = 📦 ₪150, 0 = everything sold out.
    Earlier stages show as sold out, later ones as locked. Update the price in PayBox to match. */
-const STAGE = 3;
+const STAGE = 0;
 const SOLD_OUT = STAGE === 0;
 const STAGES = {1:{price:120, name:'נמר', badge:'נמכר מהר'}, 2:{price:140, name:'צב', badge:'אחרונים'}, 3:{price:150, name:'מחסן', badge:'באמת אחרונים'}};
 const TIER2_OPEN = STAGE > 1;
